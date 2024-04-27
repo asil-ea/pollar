@@ -1,14 +1,107 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
 import OpenAI from "openai";
-
-interface IFormResponse {
-  [key: string]: FormDataEntryValue;
-}
+import {
+  CREATESURVEYPROMPT,
+  PREDICTQUESTIONRESULTSPROMPT,
+} from "@/lib/constants";
+import { IFormResponse, IInputJson } from "@/lib/types";
+import { performCreateSurveyFormValidation } from "@/lib/utils";
 
 const openai = new OpenAI();
+const parseCSVtoJSONAndPopulate = async (csv: File, formData: FormData) => {
+  const csvString = await csv.text();
+  const lines = csvString.split("\r\n");
+  const headers = lines[0].split(";");
+  const data = lines.slice(1).map((line) => {
+    const values = line.split(";");
+    return headers.reduce((acc: any, header: any, index: any) => {
+      acc[header] = values[index];
+      return acc;
+    }, {});
+  });
+
+  const json: IInputJson = {
+    surveyTitle: "",
+    surveyQuestions: [],
+    surveyOptions: [],
+    answers: [],
+    newQuestion: "",
+  };
+
+  // populate answers and surveyQuestions
+  for (let i = 0; i < data.length; i++) {
+    for (const key in data[i]) {
+      // means it's a question
+      if (Number.isNaN(parseInt(key))) {
+        json.surveyQuestions.push(data[i][key]);
+        continue;
+      }
+
+      // populate answers array
+      if (i === 0) {
+        json.answers.push({
+          respondent: parseInt(key),
+          answers: [],
+        });
+      }
+
+      // find respondent index in json
+      const respondentIndexInJson = json.answers.findIndex(
+        (obj: any) => obj.respondent === parseInt(key)
+      );
+
+      // add answers to respondent
+      json.answers[respondentIndexInJson].answers.push(data[i][key]);
+    }
+  }
+
+  // populate newQuestion
+  json.newQuestion = formData.get("questionToPredict") as string;
+
+  // populate surveyTitle
+  json.surveyTitle = formData.get("surveyTitle") as string;
+
+  // populate surveyOptions
+  json.surveyOptions = (formData.get("surveyOptions") as string)
+    .trim()
+    .split(",");
+
+  return json;
+};
+
+export const submitPredictQuestion = async (
+  prevState: any,
+  formData: FormData
+) => {
+  const csv = formData.get("file-upload") as File;
+  const inputJSON = await parseCSVtoJSONAndPopulate(csv, formData);
+
+  const response = await openai.chat.completions.create({
+    messages: [
+      {
+        role: "system",
+        content: PREDICTQUESTIONRESULTSPROMPT,
+      },
+      {
+        role: "user",
+        content: JSON.stringify(inputJSON),
+      },
+    ],
+    model: "gpt-3.5-turbo-0125",
+    response_format: { type: "json_object" },
+  });
+
+  // @ts-ignore
+  const message = await JSON.parse(response.choices[0].message.content);
+
+  console.log(response);
+  console.log(message, "message");
+  console.log(inputJSON, "inputJSON");
+  revalidatePath("/predict-question-results");
+  return message;
+};
 
 export const submitCreateSurvey = async (
   prevState: any,
@@ -19,48 +112,24 @@ export const submitCreateSurvey = async (
     formResponse[key] = value;
   });
 
+  const validations = performCreateSurveyFormValidation(formResponse);
+
+  if (validations) {
+    return validations;
+  }
+
   const response = await openai.chat.completions.create({
     messages: [
       {
         role: "system",
-        content: `
-        You are a survey generator. You have three inputs: "surveyPurpose", "questionCount" and "optionCount". You will generate a title and relevant questions for the given survey purpose. The inputs are described below:
-        - surveyPurpose: This will be the general purpose of the generated survey. The generated questions must serve to this purpose fully.
-        - questionCount: This is the total question count to generate.
-        - optionCount: This is the total count of options to a question. For example, if this value is 5, the options could be 'Strongly agree', 'Agree', 'Neither agree nor disagree', 'Disagree', 'Strongly disagree'. If the value is 2 the options could be 'Agree' and 'Disagree' and so on. Must be between 2 and 5.
-
-        Limitations:
-        You must generate minimum of 2 options and maximum of 5 options. If the optionCount is less than 2 or more than 5, you must return an error message. 2 and 5 are included in the range.
-        You must generate minimum of 1 question and maximum of 10 questions. If the questionCount is less than 1 or more than 10, you must return an error message. 1 and 10 are included in the range.
-        
-        Requirements:
-        You are responsible to generate valid options for the questions.
-        Your questions output must be answerable with the options you generate. For example, if the optionCount is 3, all the questions must be answerable with 'Yes', 'No', 'Maybe'.
-        Your surveyTitle, questions and options outputs must be the same language as the surveyPurpose input.
-        Consider options as levels. For example, if the optionCount is 5, "Strongly agree" is the highest level and "Strongly disagree" is the lowest level. You must generate options in this order.
-        Generated options count must be equal to the optionCount input.
-        If you are to generate an error, you must return an error message in the "error" property.
-        Your output must be a JSON object, containing "surveyTitle", "options" and "questions" properties. Here is an example:
-        {
-          "surveyTitle":  "Mayor Satisfaction Survey",
-          "options": ["Strongly agree", "Agree", "Neither agree nor disagree", "Disagree", "Strongly disagree"],
-          "questions": [
-            {
-              "title": "Our mayor recognizes the problems of our city."
-            },
-            {
-              "title": "Our mayor works hard to satisfy the fellow residents"
-            }
-          ]
-        }
-        `,
+        content: CREATESURVEYPROMPT,
       },
       {
         role: "user",
         content: JSON.stringify(formResponse),
       },
     ],
-    model: "gpt-3.5-turbo-0125",
+    model: "gpt-3.5-turbo",
     response_format: { type: "json_object" },
   });
 
