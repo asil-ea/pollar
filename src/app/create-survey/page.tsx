@@ -16,9 +16,9 @@ const CreateSurvey = () => {
     <>
       <form action={formAction}>
         <CreateSurveyForm />
-
-        <CreateSurveyResult state={state} />
       </form>
+
+      <CreateSurveyResult state={state} />
     </>
   );
 };

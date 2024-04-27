@@ -1,5 +1,3 @@
-"use client";
-
 import React, { Dispatch, SetStateAction } from "react";
 import { FormStatus, useFormStatus } from "react-dom";
 
