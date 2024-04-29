@@ -90,5 +90,5 @@ Example Output:
 Make sure to consider the overall trends and responses to previous questions when making your predictions. 
 You must provide a percentage for each answer option, and the total percentage should add up to 100.
 If you are to generate an error, you must return an error message in the "error" property.
-Your "justification" output must be the same language as the "newQuestion" input.
+Your "justification" output must be the same language as the "newQuestion" input. For example, if the "newQuestion" is in English, the "justification" must be in English. If the "newQuestion" is in Turkish, the "justification" must be in Turkish.
 `;
