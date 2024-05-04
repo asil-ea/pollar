@@ -1,26 +1,22 @@
-"use client";
-
-import React, { useEffect } from "react";
-import { useFormState } from "react-dom";
-import { submitPredictQuestion } from "../actions";
+"use server";
+import React from "react";
+import { redirect } from "next/navigation";
+import { createClient } from "@/utils/supabase/server";
 import PredictQuestionResultsForm from "@/components/predict-question-results/PredictQuestionResultsForm";
-import PredictQuestionResultsResult from "@/components/predict-question-results/PredictQuestionResultsResult";
 
 const initialState = {};
 
-const PredictQuestionResults = () => {
-  const [state, formAction] = useFormState(submitPredictQuestion, initialState);
+const PredictQuestionResults = async () => {
+  const supabase = createClient();
 
-  useEffect(() => {
-    console.log(state);
-  }, [state]);
+  const { data, error } = await supabase.auth.getUser();
+  if (error || !data?.user) {
+    redirect("/login");
+  }
 
   return (
     <div className="container mx-4 my-6">
-      <form action={formAction}>
-        <PredictQuestionResultsForm />
-      </form>
-      <PredictQuestionResultsResult state={state} />
+      <PredictQuestionResultsForm />
     </div>
   );
 };
