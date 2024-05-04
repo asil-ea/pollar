@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "../assets/globals.css";
 import Link from "next/link";
+import { createClient } from "@/utils/supabase/server";
+import { handleSignout } from "./actions";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -10,11 +12,16 @@ export const metadata: Metadata = {
   description: "Use the power of AI to survey.",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const supabase = createClient();
+
+  const { data, error } = await supabase.auth.getUser();
+  const isLoggedIn = !error || data?.user;
+
   return (
     <html lang="en">
       <body className={inter.className}>
@@ -34,6 +41,25 @@ export default function RootLayout({
                 >
                   Create Survey
                 </Link>
+              </div>
+              <div className="flex space-x-4">
+                {isLoggedIn ? (
+                  <form>
+                    <button
+                      formAction={handleSignout}
+                      className="text-white hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium"
+                    >
+                      Log out
+                    </button>
+                  </form>
+                ) : (
+                  <Link
+                    href="/login"
+                    className="text-white hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium"
+                  >
+                    Log in
+                  </Link>
+                )}
               </div>
             </div>
           </div>

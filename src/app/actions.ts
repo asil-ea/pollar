@@ -8,6 +8,7 @@ import {
 } from "@/lib/constants";
 import { IFormResponse, IInputJson } from "@/lib/types";
 import { parseFormData, performCreateSurveyFormValidation } from "@/lib/utils";
+import { createClient } from "@/utils/supabase/server";
 
 const openai = new OpenAI();
 const parseCSVtoJSONAndPopulate = async (csv: File, formData: FormData) => {
@@ -136,4 +137,11 @@ export const submitCreateSurvey = async (
   console.log(response);
   revalidatePath("/create-survey");
   return message;
+};
+
+export const handleSignout = async () => {
+  const supabase = createClient();
+
+  await supabase.auth.signOut();
+  revalidatePath("/", "layout");
 };
