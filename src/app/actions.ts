@@ -7,7 +7,7 @@ import {
   PREDICTQUESTIONRESULTSPROMPT,
 } from "@/lib/constants";
 import { IFormResponse, IInputJson } from "@/lib/types";
-import { performCreateSurveyFormValidation } from "@/lib/utils";
+import { parseFormData, performCreateSurveyFormValidation } from "@/lib/utils";
 
 const openai = new OpenAI();
 const parseCSVtoJSONAndPopulate = async (csv: File, formData: FormData) => {
@@ -107,10 +107,7 @@ export const submitCreateSurvey = async (
   prevState: any,
   formData: FormData
 ) => {
-  const formResponse: IFormResponse = {};
-  formData.forEach((value: FormDataEntryValue, key: string) => {
-    formResponse[key] = value;
-  });
+  const formResponse: IFormResponse = parseFormData(formData);
 
   const validations = performCreateSurveyFormValidation(formResponse);
 

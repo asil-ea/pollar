@@ -24,3 +24,12 @@ export const performCreateSurveyFormValidation = (
 
   return null;
 };
+
+export const parseFormData = (formData: FormData) => {
+  const formResponse: IFormResponse = {};
+  formData.forEach((value: FormDataEntryValue, key: string) => {
+    formResponse[key] = value;
+  });
+
+  return formResponse;
+};
