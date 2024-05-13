@@ -44,14 +44,22 @@ export default async function RootLayout({
               </div>
               <div className="flex space-x-4">
                 {isLoggedIn ? (
-                  <form>
-                    <button
-                      formAction={handleSignout}
+                  <>
+                    <Link
+                      href="/my-surveys"
                       className="text-white hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium"
                     >
-                      Log out
-                    </button>
-                  </form>
+                      My Surveys
+                    </Link>
+                    <form>
+                      <button
+                        formAction={handleSignout}
+                        className="text-white hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium"
+                      >
+                        Log out
+                      </button>
+                    </form>
+                  </>
                 ) : (
                   <Link
                     href="/login"

@@ -9,6 +9,7 @@ import {
 import { IFormResponse, IInputJson } from "@/lib/types";
 import { parseFormData, performCreateSurveyFormValidation } from "@/lib/utils";
 import { createClient } from "@/utils/supabase/server";
+import { redirect } from "next/navigation";
 
 const openai = new OpenAI();
 const parseCSVtoJSONAndPopulate = async (csv: File, formData: FormData) => {
@@ -137,6 +138,59 @@ export const submitCreateSurvey = async (
   console.log(response);
   revalidatePath("/create-survey");
   return message;
+};
+
+export const handleSaveSurvey = async (surveyPayload: any) => {
+  const supabase = createClient();
+
+  const surveyOptions = surveyPayload.options.map(
+    (option: string, index: number) => {
+      return {
+        option: option,
+        index: index,
+      };
+    }
+  );
+
+  const { data: userData, error: userError } = await supabase.auth.getUser();
+
+  const { data: insertData, error: insertError } = await supabase
+    .from("surveys")
+    .insert([
+      {
+        author_uid: userData?.user?.id,
+        survey_title: surveyPayload.surveyTitle,
+        survey_options: JSON.stringify(surveyOptions),
+      },
+    ])
+    .select();
+
+  if (insertData) {
+    surveyPayload.questions.forEach(async (question: any) => {
+      const { data: insertQuestionsData, error: insertQuestionsError } =
+        await supabase
+          .from("questions")
+          .insert([
+            {
+              author_uid: userData?.user?.id,
+              survey_id: insertData[0]?.id,
+              question: question.title,
+              index: parseInt(question.index),
+            },
+          ])
+          .select();
+
+      if (insertQuestionsError || insertQuestionsData) {
+        console.error("insertQuestionsError:", insertQuestionsError);
+        console.error("insertQuestionsData:", insertQuestionsData);
+        return {
+          error: "Error saving survey questions",
+        };
+      }
+    });
+
+    return redirect(`my-surveys/${insertData[0]?.id}`);
+  }
 };
 
 export const handleSignout = async () => {
