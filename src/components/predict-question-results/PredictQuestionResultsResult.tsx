@@ -19,7 +19,7 @@ const PredictQuestionResultsResult = ({ state }: { state: any }) => {
   }, [state]);
 
   if (!isGenerated) {
-    return <div className="container mx-2 my-6">No question to predict</div>;
+    return <div className="container mx-4 my-6">No question to predict</div>;
   }
 
   if (isGenerated && state.error) {

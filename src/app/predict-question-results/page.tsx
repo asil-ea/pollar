@@ -15,7 +15,7 @@ const PredictQuestionResults = async () => {
   }
 
   return (
-    <div className="container mx-4 my-6">
+    <div>
       <PredictQuestionResultsForm />
     </div>
   );
