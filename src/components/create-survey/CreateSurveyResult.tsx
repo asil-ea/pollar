@@ -5,6 +5,7 @@ import { handleSaveSurvey } from "@/app/actions";
 const CreateSurveyResult = ({ state }: { state: any }) => {
   const [isGenerated, setIsGenerated] = useState(false);
   const [saveButtonDisabled, setSaveButtonDisabled] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const possibleOptions = useMemo(() => {
     if (!state.options) {
@@ -33,6 +34,7 @@ const CreateSurveyResult = ({ state }: { state: any }) => {
   }, [state]);
 
   const handleCheckboxChecked = (e: any) => {
+    if (errorMessage) setErrorMessage("");
     if (e.target.checked) {
       selectedQuestions.push({
         title: e.target.value,
@@ -51,6 +53,11 @@ const CreateSurveyResult = ({ state }: { state: any }) => {
     surveyPayload["questions"] = selectedQuestions;
     surveyPayload["options"] = possibleOptions;
 
+    if (isEmpty(surveyPayload.questions)) {
+      setErrorMessage("Please select at least one question to save the survey");
+      setSaveButtonDisabled(false);
+      return;
+    }
     await handleSaveSurvey(surveyPayload);
     setSaveButtonDisabled(false);
   };
@@ -98,13 +105,18 @@ const CreateSurveyResult = ({ state }: { state: any }) => {
           </li>
         ))}
       </ol>
-      <button
-        onClick={handleSubmit}
-        disabled={saveButtonDisabled}
-        className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:cursor-not-allowed disabled:bg-gray-300 disabled:text-gray-900 disabled:shadow-none disabled:hover:bg-gray-300 disabled:focus-visible:outline-gray-300 disabled:focus-visible:outline-offset-0 disabled:focus-visible:outline-none"
-      >
-        Save Survey
-      </button>
+      <div className="grid">
+        <button
+          onClick={handleSubmit}
+          disabled={saveButtonDisabled}
+          className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:cursor-not-allowed disabled:bg-gray-300 disabled:text-gray-900 disabled:shadow-none disabled:hover:bg-gray-300 disabled:focus-visible:outline-gray-300 disabled:focus-visible:outline-offset-0 disabled:focus-visible:outline-none"
+        >
+          Save Survey
+        </button>
+        {errorMessage && (
+          <span className="text-red-500 text-sm">{errorMessage}</span>
+        )}
+      </div>
     </div>
   );
 };

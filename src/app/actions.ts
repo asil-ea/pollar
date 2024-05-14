@@ -6,7 +6,7 @@ import {
   CREATESURVEYPROMPT,
   PREDICTQUESTIONRESULTSPROMPT,
 } from "@/lib/constants";
-import { IFormResponse, IInputJson } from "@/lib/types";
+import { IFormResponse, IInputJson, SubmitCreateSurveyFormData } from "@/lib/types";
 import { parseFormData, performCreateSurveyFormValidation } from "@/lib/utils";
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
@@ -106,17 +106,8 @@ export const submitPredictQuestion = async (
 };
 
 export const submitCreateSurvey = async (
-  prevState: any,
-  formData: FormData
+  formResponse: SubmitCreateSurveyFormData
 ) => {
-  const formResponse: IFormResponse = parseFormData(formData);
-
-  const validations = performCreateSurveyFormValidation(formResponse);
-
-  if (validations) {
-    return validations;
-  }
-
   const response = await openai.chat.completions.create({
     messages: [
       {

@@ -9,3 +9,9 @@ export interface IInputJson {
   answers: { respondent: number; answers: string[] }[];
   newQuestion: string;
 }
+
+export type SubmitCreateSurveyFormData = {
+  surveyPurpose: string;
+  questionCount: number;
+  optionCount: number;
+};
