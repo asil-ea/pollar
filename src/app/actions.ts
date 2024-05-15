@@ -6,12 +6,12 @@ import {
   CREATESURVEYPROMPT,
   PREDICTQUESTIONRESULTSPROMPT,
 } from "@/lib/constants";
-import { IFormResponse, IInputJson, SubmitCreateSurveyFormData } from "@/lib/types";
-import { parseFormData, performCreateSurveyFormValidation } from "@/lib/utils";
+import { IInputJson, SubmitCreateSurveyFormData } from "@/lib/types";
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 
 const openai = new OpenAI();
+
 const parseCSVtoJSONAndPopulate = async (csv: File, formData: FormData) => {
   const csvString = await csv.text();
   const lines = csvString.split("\r\n");
@@ -73,11 +73,8 @@ const parseCSVtoJSONAndPopulate = async (csv: File, formData: FormData) => {
   return json;
 };
 
-export const submitPredictQuestion = async (
-  prevState: any,
-  formData: FormData
-) => {
-  const csv = formData.get("file-upload") as File;
+export const submitPredictQuestion = async (formData: FormData) => {
+  const csv = formData.get("file_upload") as File;
   const inputJSON = await parseCSVtoJSONAndPopulate(csv, formData);
 
   const response = await openai.chat.completions.create({

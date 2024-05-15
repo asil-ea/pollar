@@ -2,7 +2,7 @@
 import React from "react";
 import { redirect } from "next/navigation";
 import { createClient } from "@/utils/supabase/server";
-import PredictQuestionResultsForm from "@/components/predict-question-results/PredictQuestionResultsForm";
+import PredictQuestionResultsForm from "@/components/predict-question-results/PredictQuestionResultsForm/";
 
 const initialState = {};
 

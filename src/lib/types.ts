@@ -15,3 +15,10 @@ export type SubmitCreateSurveyFormData = {
   questionCount: number;
   optionCount: number;
 };
+
+export type PredictQuestionFormData = {
+  surveyTitle: string;
+  questionToPredict: string;
+  surveyOptions: string;
+  file_upload?: FileList;
+};
