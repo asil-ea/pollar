@@ -1,6 +1,10 @@
 "use client";
 import { ZodType, z } from "zod";
-import { PredictQuestionFormData, SubmitCreateSurveyFormData } from "./types";
+import {
+  LoginFormData,
+  PredictQuestionFormData,
+  SubmitCreateSurveyFormData,
+} from "./types";
 
 export const PredictQuestionFormSchema: ZodType<PredictQuestionFormData> =
   z.object({
@@ -32,3 +36,8 @@ export const CreateSurveyFormSchema: ZodType<SubmitCreateSurveyFormData> =
 //   message: "Passwords do not match",
 //   path: ["confirmPassword"],
 // });
+
+export const LoginFormSchema: ZodType<LoginFormData> = z.object({
+  email: z.string().email(),
+  password: z.string().min(8),
+});
