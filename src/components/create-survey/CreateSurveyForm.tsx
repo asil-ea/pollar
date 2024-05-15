@@ -6,18 +6,10 @@ import { useForm } from "react-hook-form";
 import { submitCreateSurvey } from "@/app/actions";
 import CreateSurveyResult from "./CreateSurveyResult";
 import { SubmitCreateSurveyFormData } from "@/lib/types";
+import { CreateSurveyFormSchema } from "@/lib/schemas";
 
 const CreateSurveyForm = ({}: {}) => {
-  const schema: ZodType<SubmitCreateSurveyFormData> = z.object({
-    surveyPurpose: z.string().min(20).max(256),
-    questionCount: z.number().int().positive().min(1).max(10),
-    optionCount: z.number().int().positive().min(2).max(5),
-  });
-  // make additional validations here
-  // .refine((data) => data.password === data.confirmPassword, {
-  //   message: "Passwords do not match",
-  //   path: ["confirmPassword"],
-  // });
+  const schema = CreateSurveyFormSchema;
 
   const {
     register,
@@ -35,7 +27,6 @@ const CreateSurveyForm = ({}: {}) => {
     const res = await submitCreateSurvey(data);
     setFormResponse(res);
     setButtonDisabled(false);
-    console.log(data);
   };
   return (
     <>
