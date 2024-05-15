@@ -3,12 +3,6 @@ import React, { useEffect, useMemo, useState } from "react";
 
 const PredictQuestionResultsResult = ({ state }: { state: any }) => {
   const [isGenerated, setIsGenerated] = useState(false);
-  const possibleOptions = useMemo(() => {
-    if (!state.options) {
-      return [];
-    }
-    return state.options;
-  }, [state]);
 
   useEffect(() => {
     if (isEmpty(state)) {
@@ -29,26 +23,30 @@ const PredictQuestionResultsResult = ({ state }: { state: any }) => {
   }
 
   return (
-    <div className="container mx-2 my-6">
-      {/* title */}
-      <h1 className="text-base font-semibold leading-7 text-gray-900">
-        {state.surveyTitle}
-      </h1>
-      <div>
-        {Object.keys(state.predictions).map((key) => (
-          <div key={key}>
-            {key}: {state.predictions[key]}%
+    <>
+      <div className="container mx-auto my-6 p-4 bg-gray-100 rounded-md">
+        <div className="flex items-center mb-2">
+          <h1 className="text-2xl font-semibold leading-7 text-gray-900 mb-2">
+            Prediction
+          </h1>
+        </div>
+        <div className="pl-4">
+          {Object.keys(state.predictions).map((key) => (
+            <div key={key}>
+              {key}: {state.predictions[key]}%
+            </div>
+          ))}
+        </div>
+        <div className="grid">
+          <div className="mt-4">
+            <h2 className="text-base font-semibold leading-7 text-gray-900">
+              Justification
+            </h2>
+            <p>{state.justification}</p>
           </div>
-        ))}
-        {/* justification */}
-        <div className="mt-4">
-          <h2 className="text-base font-semibold leading-7 text-gray-900">
-            Justification
-          </h2>
-          <p>{state.justification}</p>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
