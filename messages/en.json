@@ -72,5 +72,9 @@
     "pqr3": "Please upload a file",
     "pqr4": "Only CSV files are allowed",
     "pqr5": "File size must be less than 10MB"
+  },
+  "ChangeLocale": {
+    "English": "English",
+    "Turkish": "Turkish"
   }
 }

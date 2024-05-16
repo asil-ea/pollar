@@ -72,5 +72,9 @@
     "pqr3": "Bir dosya yükleyin",
     "pqr4": "Sadece CSV dosyaları yüklenebilir",
     "pqr5": "Dosyanın boyutu 10MB'den küçük olmalı"
+  },
+  "ChangeLocale": {
+    "English": "İngilizce",
+    "Turkish": "Türkçe"
   }
 }
