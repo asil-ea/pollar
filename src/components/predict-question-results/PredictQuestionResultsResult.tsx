@@ -1,9 +1,10 @@
 import { isEmpty } from "lodash";
 import React, { useEffect, useMemo, useState } from "react";
+import { useTranslations } from "next-intl";
 
 const PredictQuestionResultsResult = ({ state }: { state: any }) => {
   const [isGenerated, setIsGenerated] = useState(false);
-
+  const t = useTranslations("PredictQRR");
   useEffect(() => {
     if (isEmpty(state)) {
       setIsGenerated(false);
@@ -13,12 +14,14 @@ const PredictQuestionResultsResult = ({ state }: { state: any }) => {
   }, [state]);
 
   if (!isGenerated) {
-    return <div className="container mx-4 my-6">No question to predict</div>;
+    return <div className="container mx-4 my-6">{t("pqrr")}</div>;
   }
 
   if (isGenerated && state.error) {
     return (
-      <div className="container mx-2 my-6">Error predicting: {state.error}</div>
+      <div className="container mx-2 my-6">
+        {t("pqrr2")}: {state.error}
+      </div>
     );
   }
 
@@ -40,7 +43,7 @@ const PredictQuestionResultsResult = ({ state }: { state: any }) => {
         <div className="grid">
           <div className="mt-4">
             <h2 className="text-base font-semibold leading-7 text-gray-900">
-              Justification
+              {t("pqrr4")}
             </h2>
             <p>{state.justification}</p>
           </div>

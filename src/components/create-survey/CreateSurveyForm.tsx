@@ -6,10 +6,25 @@ import { useForm } from "react-hook-form";
 import { submitCreateSurvey } from "@/app/actions";
 import CreateSurveyResult from "./CreateSurveyResult";
 import { SubmitCreateSurveyFormData } from "@/lib/types";
-import { CreateSurveyFormSchema } from "@/lib/schemas";
+import { useTranslations } from "next-intl";
 
 const CreateSurveyForm = ({}: {}) => {
-  const schema = CreateSurveyFormSchema;
+  const t = useTranslations("CreateSF");
+  const schema: ZodType<SubmitCreateSurveyFormData> = z.object({
+    surveyPurpose: z.string().min(20, t("cs")).max(256, t("cs2")),
+    questionCount: z
+      .number({ message: t("cs3") })
+      .int(t("cs3"))
+      .positive(t("cs4"))
+      .min(1, t("cs4"))
+      .max(10, t("cs5")),
+    optionCount: z
+      .number({ message: t("cs3") })
+      .int(t("cs3"))
+      .positive(t("cs4"))
+      .min(2, t("cs6"))
+      .max(5, t("cs7")),
+  });
 
   const {
     register,
@@ -35,7 +50,7 @@ const CreateSurveyForm = ({}: {}) => {
           <div className="space-y-12">
             <div className="border-b border-gray-900/10 pb-12">
               <h1 className="text-base font-semibold leading-7 text-gray-900">
-                Create survey
+                {t("csf")}
               </h1>
 
               <div className="mt-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
@@ -44,7 +59,7 @@ const CreateSurveyForm = ({}: {}) => {
                     htmlFor="surveyPurpose"
                     className="block text-sm font-medium leading-6 text-gray-900"
                   >
-                    Survey purpose (max 256 characters)
+                    {t("csf2")}
                   </label>
                   <div className="mt-2">
                     <textarea
@@ -67,7 +82,7 @@ const CreateSurveyForm = ({}: {}) => {
                     htmlFor="questionCount"
                     className="block text-sm font-medium leading-6 text-gray-900"
                   >
-                    Question Count
+                    {t("csf3")}
                   </label>
                   <div className="mt-2">
                     <input
@@ -88,7 +103,7 @@ const CreateSurveyForm = ({}: {}) => {
                     htmlFor="optionCount"
                     className="block text-sm font-medium leading-6 text-gray-900"
                   >
-                    Option count (between 2-5)
+                    {t("csf4")}
                   </label>
                   <div className="mt-2">
                     <input
@@ -114,7 +129,7 @@ const CreateSurveyForm = ({}: {}) => {
               disabled={buttonDisabled}
               className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:cursor-not-allowed disabled:bg-gray-300 disabled:text-gray-900 disabled:shadow-none disabled:hover:bg-gray-300 disabled:focus-visible:outline-gray-300 disabled:focus-visible:outline-offset-0 disabled:focus-visible:outline-none"
             >
-              {buttonDisabled ? "Generating..." : "Submit"}
+              {buttonDisabled ? t("cs8") : t("cs9")}
             </button>
           </div>
         </div>

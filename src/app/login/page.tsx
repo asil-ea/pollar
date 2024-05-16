@@ -1,12 +1,14 @@
 import { login, signup } from "./actions";
+import { useTranslations } from "next-intl";
 
 export default function LoginPage() {
+  const t = useTranslations("Login");
   return (
     <>
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-            Sign in to your account
+            {t("login")}
           </h2>
         </div>
 
@@ -17,7 +19,7 @@ export default function LoginPage() {
                 htmlFor="email"
                 className="block text-sm font-medium leading-6 text-gray-900"
               >
-                Email address
+                {t("login2")}
               </label>
               <div className="mt-2">
                 <input
@@ -37,7 +39,7 @@ export default function LoginPage() {
                   htmlFor="password"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
-                  Password
+                  {t("login3")}
                 </label>
               </div>
               <div className="mt-2">
@@ -57,14 +59,14 @@ export default function LoginPage() {
                 formAction={login}
                 className="flex w-full sm:w-1/2 justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 mb-2 sm:mb-0"
               >
-                Sign in
+                {t("login4")}
               </button>
               <div className="w-2" />
               <button
                 formAction={signup}
                 className="flex w-full sm:w-1/2 justify-center rounded-md border border-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-indigo-600 hover:bg-indigo-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
-                Sign up
+                {t("login5")}
               </button>
             </div>
           </form>
