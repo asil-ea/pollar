@@ -4,6 +4,8 @@ import "../assets/globals.css";
 import Link from "next/link";
 import { createClient } from "@/utils/supabase/server";
 import { handleSignout } from "./actions";
+import { getLocale, getMessages, getTranslations } from "next-intl/server";
+import { NextIntlClientProvider } from "next-intl";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,13 +19,14 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const locale = await getLocale();
   const supabase = createClient();
-
+  const messages = await getMessages();
   const { data, error } = await supabase.auth.getUser();
   const isLoggedIn = !error || data?.user;
-
+  const t = await getTranslations("Navbar");
   return (
-    <html lang="en">
+    <html lang={locale}>
       <body className={inter.className}>
         <nav className="bg-gray-800 p-4">
           <div className="max-w-7xl mx-auto px-4">
@@ -33,13 +36,13 @@ export default async function RootLayout({
                   href="/predict-question-results"
                   className="text-white hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium"
                 >
-                  Predict Question Results
+                  {t("nav")}
                 </Link>
                 <Link
                   href="/create-survey"
                   className="text-white hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium"
                 >
-                  Create Survey
+                  {t("nav2")}
                 </Link>
               </div>
               <div className="flex space-x-4">
@@ -49,14 +52,14 @@ export default async function RootLayout({
                       href="/my-surveys"
                       className="text-white hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium"
                     >
-                      My Surveys
+                      {t("nav3")}
                     </Link>
                     <form>
                       <button
                         formAction={handleSignout}
                         className="text-white hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium"
                       >
-                        Log out
+                        {t("nav4")}
                       </button>
                     </form>
                   </>
@@ -65,14 +68,16 @@ export default async function RootLayout({
                     href="/login"
                     className="text-white hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium"
                   >
-                    Log in
+                    {t("nav5")}
                   </Link>
                 )}
               </div>
             </div>
           </div>
         </nav>
-        <main>{children}</main>
+        <NextIntlClientProvider messages={messages}>
+          <main>{children}</main>
+        </NextIntlClientProvider>
       </body>
     </html>
   );
