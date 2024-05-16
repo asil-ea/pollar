@@ -1,0 +1,74 @@
+{
+  "Index": {
+    "title": "Anket için yapay zekanın gücünü kullanın!",
+    "title2": "Saniyeler içinde anketler oluşturun ve soruların sonuçlarını tahmin ettirin.",
+    "title3": "Başlayın"
+  },
+  "Navbar": {
+    "nav": "Cevap Tahmini",
+    "nav2": "Anket Oluştur",
+    "nav3": "Anketlerim",
+    "nav4": "Oturumu kapat",
+    "nav5": "Giriş yap"
+  },
+  "Error": {
+    "error": "Üzgünüm, bir şeyler yanlış gitti"
+  },
+  "Login": {
+    "login": "Hesabınıza giriş yapın",
+    "login2": "Email adresi",
+    "login3": "Şifre",
+    "login4": "Giriş yap",
+    "login5": "Kayıt ol"
+  },
+  "Loading": {
+    "loading": "Yükleniyor"
+  },
+  "Mysur": {
+    "mysur": "Benim Anketlerim"
+  },
+  "Private": {
+    "private": "Merhaba"
+  },
+  "CreateSF": {
+    "csf": "Anket oluştur",
+    "csf2": "Anketin Amacı (en fazla 256 karakter)",
+    "csf3": "Soru Sayısı(en fazla 10)",
+    "csf4": "Seçenek Sayısı (2-5 arası)",
+    "cs": "Anketin amacı en az 20 karakter olmalı",
+    "cs2": "Anketin amacı en fazla 256 karakter olmalı",
+    "cs3": "Değer tam sayı olmalı",
+    "cs4": "Sayı 0'dan büyük olmalı",
+    "cs5": "Sayı 10'dan küçük ya da eşit olmalı",
+    "cs6": "Sayı 2'den büyük ya da eşit olmalı",
+    "cs7": "Sayı 5'den küçük ya da eşit olmalı",
+    "cs8": "Yükleniyor...",
+    "cs9": "Gönder"
+  },
+  "CreateSR": {
+    "csr": "Anket oluşturulmadı.",
+    "csr2": "Anket oluştururken hata",
+    "csr3": "Ankete eklemek istediğiniz soruları seçin",
+    "csr4": "Anketi kaydet"
+  },
+  "PredictQRR": {
+    "pqrr": "Tahmin edilecek soru yok... Henüz",
+    "pqrr2": "Tahmin ederken hata",
+    "pqrr3": "Tahmin",
+    "pqrr4": "Gerekçe"
+  },
+  "PredictQRF": {
+    "pqrf": "Cevap tahmini",
+    "pqrf2": "Anket Başlığı",
+    "pqrf3": "Tahmin edilecek soru(en fazla 256 karakter)",
+    "pqrf4": "Anket seçenekleri(virgülle ayırılmış)",
+    "pqrf5": "Anket CSV'i",
+    "pqrf6": "Bir dosya yükleyin",
+    "pqrf7": "Dosya türü: CSV, En fazla 10MB",
+    "pqr": "En az 10 karakter içermeli",
+    "pqr2": "En fazla 256 karakter içermeli",
+    "pqr3": "Bir dosya yükleyin",
+    "pqr4": "Sadece CSV dosyaları yüklenebilir",
+    "pqr5": "Dosyanın boyutu 10MB'den küçük olmalı"
+  }
+}
