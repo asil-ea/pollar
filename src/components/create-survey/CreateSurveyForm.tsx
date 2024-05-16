@@ -6,6 +6,7 @@ import { submitCreateSurvey } from "@/app/actions";
 import CreateSurveyResult from "./CreateSurveyResult";
 import { SubmitCreateSurveyFormData } from "@/lib/types";
 import { useTranslations } from "next-intl";
+import { ZodType, z } from "zod";
 
 const CreateSurveyForm = ({}: {}) => {
   const t = useTranslations("CreateSF");

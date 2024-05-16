@@ -1,5 +1,4 @@
 "use client";
-import { LoginFormSchema } from "@/lib/schemas";
 import { login, signup } from "./actions";
 import { useTranslations } from "next-intl";
 import { useForm } from "react-hook-form";
@@ -8,6 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { createClient } from "@/utils/supabase/client";
 import { useRouter } from "next/navigation";
+import { ZodType, z } from "zod";
 
 export default function LoginPage() {
   const t = useTranslations("Login");
@@ -22,7 +22,10 @@ export default function LoginPage() {
   };
   checkUser();
 
-  const schema = LoginFormSchema;
+  const schema: ZodType<LoginFormData> = z.object({
+    email: z.string().email(),
+    password: z.string().min(8),
+  });;
 
   const {
     register,
