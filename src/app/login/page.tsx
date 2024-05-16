@@ -23,9 +23,9 @@ export default function LoginPage() {
   checkUser();
 
   const schema: ZodType<LoginFormData> = z.object({
-    email: z.string().email(),
-    password: z.string().min(8),
-  });;
+    email: z.string().email(t("login6")),
+    password: z.string().min(8, t("login7")),
+  });
 
   const {
     register,

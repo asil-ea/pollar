@@ -19,7 +19,9 @@
     "login2": "Email address",
     "login3": "Password",
     "login4": "Sign in",
-    "login5": "Sign up"
+    "login5": "Sign up",
+    "login6": "Invalid email",
+    "login7": "String must contain at least 8 character(s)"
   },
   "Loading": {
     "loading": "Loading"

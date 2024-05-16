@@ -19,7 +19,9 @@
     "login2": "Email adresi",
     "login3": "Şifre",
     "login4": "Giriş yap",
-    "login5": "Kayıt ol"
+    "login5": "Kayıt ol",
+    "login6": "Geçersiz email",
+    "login7": "Şifre en az 8 karakter içermeli"
   },
   "Loading": {
     "loading": "Yükleniyor"
