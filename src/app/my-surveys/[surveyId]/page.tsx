@@ -1,7 +1,15 @@
 import React from "react";
 import { fetchSurveyDetail } from "./actions";
+import { redirect } from "next/navigation";
+import { createClient } from "@/utils/supabase/server";
 
 const SurveyDetail = async ({ params }: { params: { surveyId: string } }) => {
+  const supabase = createClient();
+  const { data, error } = await supabase.auth.getUser();
+  if (error || !data?.user) {
+    redirect("/login");
+  }
+
   const { surveyTitle, questions, options } = await fetchSurveyDetail(params);
 
   return (

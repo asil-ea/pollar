@@ -3,10 +3,17 @@ import React from "react";
 import { createClient } from "@/utils/supabase/server";
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
+import { redirect } from "next/navigation";
 
 const MySurveys = async () => {
+  const supabase = createClient();
+
+  const { data, error } = await supabase.auth.getUser();
+  if (error || !data?.user) {
+    redirect("/login");
+  }
+
   const fetchUserSurveys = async () => {
-    const supabase = createClient();
     const { data: userData, error: userError } = await supabase.auth.getUser();
 
     const { data: surveysData, error: surveysError } = await supabase

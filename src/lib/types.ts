@@ -22,3 +22,8 @@ export type PredictQuestionFormData = {
   surveyOptions: string;
   file_upload?: FileList;
 };
+
+export type LoginFormData = {
+  email: string;
+  password: string;
+};
