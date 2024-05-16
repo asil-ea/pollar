@@ -1,0 +1,80 @@
+{
+  "Index": {
+    "title": "Use the power of AI to Survey",
+    "title2": "Create surveys and predict question results in seconds.",
+    "title3": "Get started"
+  },
+  "Navbar": {
+    "nav": "Predict Question Results",
+    "nav2": "Create Survey",
+    "nav3": "My Surveys",
+    "nav4": "Log out",
+    "nav5": "Log in"
+  },
+  "Error": {
+    "error": "Sorry, something went wrong"
+  },
+  "Login": {
+    "login": "Sign in to your account",
+    "login2": "Email address",
+    "login3": "Password",
+    "login4": "Sign in",
+    "login5": "Sign up",
+    "login6": "Invalid email",
+    "login7": "String must contain at least 8 character(s)"
+  },
+  "Loading": {
+    "loading": "Loading"
+  },
+  "Mysur": {
+    "mysur": "My Surveys"
+  },
+  "Private": {
+    "private": "Hello"
+  },
+  "CreateSF": {
+    "csf": "Create survey",
+    "csf2": "Survey purpose (max 256 characters)",
+    "csf3": "Question Count (up to 10)",
+    "csf4": "Option count (between 2-5)",
+    "cs": "String must contain at least 20 character(s)",
+    "cs2": "String must contain at most 256 character(s)",
+    "cs3": "Expected number, received nan",
+    "cs4": "Number must be greater than 0",
+    "cs5": "Number must be less than or equal to 10",
+    "cs6": "Number must be greater than or equal to 2",
+    "cs7": "Number must be less than or equal to 5",
+    "cs8": "Generating...",
+    "cs9": "Submit"
+  },
+  "CreateSR": {
+    "csr": "No survey generated",
+    "csr2": "Error generating survey",
+    "csr3": "Select all the options you would like to add to the Survey.",
+    "csr4": "Save Survey"
+  },
+  "PredictQRR": {
+    "pqrr": "No question to predict",
+    "pqrr2": "Error predicting",
+    "pqrr3": "Prediction",
+    "pqrr4": "Justification"
+  },
+  "PredictQRF": {
+    "pqrf": "Predict Question",
+    "pqrf2": "Survey Title",
+    "pqrf3": "Question to predict (max 256 characters)",
+    "pqrf4": "Survey options (comma separated)",
+    "pqrf5": "Survey CSV",
+    "pqrf6": "Upload a file",
+    "pqrf7": "Filetype: CSV, Max size: 10MB",
+    "pqr": "String must contain at least 10 character(s)",
+    "pqr2": "String must contain at most 256 character(s)",
+    "pqr3": "Please upload a file",
+    "pqr4": "Only CSV files are allowed",
+    "pqr5": "File size must be less than 10MB"
+  },
+  "ChangeLocale": {
+    "English": "English",
+    "Turkish": "Turkish"
+  }
+}

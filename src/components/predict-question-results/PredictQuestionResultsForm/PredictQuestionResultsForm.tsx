@@ -4,14 +4,32 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { submitPredictQuestion } from "@/app/actions";
 import { PredictQuestionFormData } from "@/lib/types";
-import { PredictQuestionFormSchema } from "@/lib/schemas";
 import PredictQuestionResultsResult from "../PredictQuestionResultsResult";
+import { useTranslations } from "next-intl";
+import { ZodType, z } from "zod";
 
 const PredictQuestionResultsForm = ({}: {}) => {
   const [formResponse, setFormResponse] = useState({});
   const [buttonDisabled, setButtonDisabled] = useState(false);
+  const t = useTranslations("PredictQRF");
 
-  const schema = PredictQuestionFormSchema;
+  const schema: ZodType<PredictQuestionFormData> = z.object({
+    surveyTitle: z.string().min(10, t("pqr")).max(256, t("pqr2")),
+    questionToPredict: z.string().min(10, t("pqr")).max(256, t("pqr2")),
+    surveyOptions: z.string().min(10, t("pqr")).max(256, t("pqr2")),
+    file_upload: z
+      // .any()
+      .instanceof(FileList)
+      .refine((files) => {
+        return !files || files.length === 1;
+      }, t("pqr3"))
+      .refine((files) => {
+        return !files[0] || files[0].type === "text/csv";
+      }, t("pqr4"))
+      .refine((files) => {
+        return !files[0] || files[0].size <= 10 * 1024 * 1024;
+      }, t("pqr5")),
+  });
 
   const {
     register,
@@ -48,7 +66,7 @@ const PredictQuestionResultsForm = ({}: {}) => {
           <div className="space-y-12">
             <div className="border-b border-gray-900/10 pb-12">
               <h1 className="text-base font-semibold leading-7 text-gray-900">
-                Predict Question
+                {t("pqrf")}
               </h1>
 
               <div className="sm:col-span-3 mt-4">
@@ -56,7 +74,7 @@ const PredictQuestionResultsForm = ({}: {}) => {
                   htmlFor="surveyTitle"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
-                  Survey Title
+                  {t("pqrf2")}
                 </label>
                 <div className="mt-2">
                   <input
@@ -78,7 +96,7 @@ const PredictQuestionResultsForm = ({}: {}) => {
                   htmlFor="questionToPredict"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
-                  Question to predict (max 256 characters)
+                  {t("pqrf3")}
                 </label>
                 <div className="mt-2">
                   <textarea
@@ -102,7 +120,7 @@ const PredictQuestionResultsForm = ({}: {}) => {
                     htmlFor="surveyOptions"
                     className="block text-sm font-medium leading-6 text-gray-900"
                   >
-                    Survey options (comma separated)
+                    {t("pqrf4")}
                   </label>
                   <div className="mt-2">
                     <textarea
@@ -122,7 +140,7 @@ const PredictQuestionResultsForm = ({}: {}) => {
 
                 <div className="col-span-full">
                   <label className="block text-sm font-medium leading-6 text-gray-900">
-                    Survey CSV
+                    {t("pqrf5")}
                   </label>
                   <div className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
                     <div>
@@ -131,7 +149,7 @@ const PredictQuestionResultsForm = ({}: {}) => {
                           htmlFor="file_upload"
                           className="mx-auto relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
                         >
-                          <span>Upload a file</span>
+                          <span>{t("pqrf6")}</span>
                           <input
                             id="file_upload"
                             type="file"
@@ -146,7 +164,7 @@ const PredictQuestionResultsForm = ({}: {}) => {
                         </p>
                       ) : (
                         <p className="mx-auto text-xs leading-5 text-gray-600">
-                          Filetype: CSV, Max size: 10MB
+                          {t("pqrf7")}
                         </p>
                       )}
                     </div>

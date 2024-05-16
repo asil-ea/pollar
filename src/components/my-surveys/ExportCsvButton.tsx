@@ -1,10 +1,11 @@
 "use client";
+import { useTranslations } from "next-intl";
 
 export const ExportCsvButton = ({ surveyId }: { surveyId: string }) => {
   const handleButtonClick = async () => {
     await fetch(`/api/download-survey?surveyId=${surveyId}`, {});
   };
-
+  const t = useTranslations("ExportCB");
   return (
     <>
       <button

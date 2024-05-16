@@ -1,11 +1,13 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { isEmpty } from "lodash";
 import { handleSaveSurvey } from "@/app/actions";
+import { useTranslations } from "next-intl";
 
 const CreateSurveyResult = ({ state }: { state: any }) => {
   const [isGenerated, setIsGenerated] = useState(false);
   const [saveButtonDisabled, setSaveButtonDisabled] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const t = useTranslations("CreateSR");
 
   const possibleOptions = useMemo(() => {
     if (!state.options) {
@@ -63,13 +65,13 @@ const CreateSurveyResult = ({ state }: { state: any }) => {
   };
 
   if (!isGenerated) {
-    return <div className="container mx-4 my-6">No survey generated</div>;
+    return <div className="container mx-4 my-6">{t("csr")}</div>;
   }
 
   if (isGenerated && state.error) {
     return (
       <div className="container mx-2 my-6">
-        Error generating survey: {state.error}
+        {t("csr2")}: {state.error}
       </div>
     );
   }
@@ -81,7 +83,7 @@ const CreateSurveyResult = ({ state }: { state: any }) => {
           {state.surveyTitle}
         </h1>
       </div>
-      <p>Select all the options you would like to add to the Survey.</p>
+      <p>{t("csr3")}</p>
       <ol className="list-decimal pl-6">
         {state.questions.map((question: any, index: number) => (
           <li key={index} className="mb-4">
@@ -111,7 +113,7 @@ const CreateSurveyResult = ({ state }: { state: any }) => {
           disabled={saveButtonDisabled}
           className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:cursor-not-allowed disabled:bg-gray-300 disabled:text-gray-900 disabled:shadow-none disabled:hover:bg-gray-300 disabled:focus-visible:outline-gray-300 disabled:focus-visible:outline-offset-0 disabled:focus-visible:outline-none"
         >
-          Save Survey
+          {t("csr4")}
         </button>
         {errorMessage && (
           <span className="text-red-500 text-sm">{errorMessage}</span>
