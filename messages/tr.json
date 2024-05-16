@@ -35,7 +35,7 @@
   "CreateSF": {
     "csf": "Anket oluştur",
     "csf2": "Anketin Amacı (en fazla 256 karakter)",
-    "csf3": "Soru Sayısı(en fazla 10)",
+    "csf3": "Soru Sayısı (en fazla 10)",
     "csf4": "Seçenek Sayısı (2-5 arası)",
     "cs": "Anketin amacı en az 20 karakter olmalı",
     "cs2": "Anketin amacı en fazla 256 karakter olmalı",
@@ -62,8 +62,8 @@
   "PredictQRF": {
     "pqrf": "Cevap tahmini",
     "pqrf2": "Anket Başlığı",
-    "pqrf3": "Tahmin edilecek soru(en fazla 256 karakter)",
-    "pqrf4": "Anket seçenekleri(virgülle ayırılmış)",
+    "pqrf3": "Tahmin edilecek soru (en fazla 256 karakter)",
+    "pqrf4": "Anket seçenekleri (virgülle ayırılmış)",
     "pqrf5": "Anket CSV'i",
     "pqrf6": "Bir dosya yükleyin",
     "pqrf7": "Dosya türü: CSV, En fazla 10MB",

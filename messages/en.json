@@ -35,7 +35,7 @@
   "CreateSF": {
     "csf": "Create survey",
     "csf2": "Survey purpose (max 256 characters)",
-    "csf3": "Question Count(up to 10)",
+    "csf3": "Question Count (up to 10)",
     "csf4": "Option count (between 2-5)",
     "cs": "String must contain at least 20 character(s)",
     "cs2": "String must contain at most 256 character(s)",
