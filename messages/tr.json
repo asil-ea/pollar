@@ -2,7 +2,9 @@
   "Index": {
     "title": "Anket için yapay zekanın gücünü kullanın!",
     "title2": "Saniyeler içinde anketler oluşturun ve soruların sonuçlarını tahmin ettirin.",
-    "title3": "Başlayın"
+    "title3": "Başlayın",
+    "title4": "Cevap Tahmini",
+    "title5": "Anket Oluştur"
   },
   "Navbar": {
     "nav": "Cevap Tahmini",
