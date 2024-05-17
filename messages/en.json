@@ -2,14 +2,19 @@
   "Index": {
     "title": "Use the power of AI to Survey",
     "title2": "Create surveys and predict question results in seconds.",
-    "title3": "Get started"
+    "title3": "Get started",
+    "title4": "Predict Question Results",
+    "title5": "Create Survey"
   },
   "Navbar": {
     "nav": "Predict Question Results",
     "nav2": "Create Survey",
     "nav3": "My Surveys",
     "nav4": "Log out",
-    "nav5": "Log in"
+    "nav5": "Log in",
+    "language": "Language",
+    "en": "English",
+    "tr": "Turkish"
   },
   "Error": {
     "error": "Sorry, something went wrong"
@@ -71,10 +76,8 @@
     "pqr2": "String must contain at most 256 character(s)",
     "pqr3": "Please upload a file",
     "pqr4": "Only CSV files are allowed",
-    "pqr5": "File size must be less than 10MB"
-  },
-  "ChangeLocale": {
-    "English": "English",
-    "Turkish": "Turkish"
+    "pqr5": "File size must be less than 10MB",
+    "generating": "Generating..",
+    "submit": "Submit"
   }
 }

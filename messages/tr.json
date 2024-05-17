@@ -2,14 +2,19 @@
   "Index": {
     "title": "Anket için yapay zekanın gücünü kullanın!",
     "title2": "Saniyeler içinde anketler oluşturun ve soruların sonuçlarını tahmin ettirin.",
-    "title3": "Başlayın"
+    "title3": "Başlayın",
+    "title4": "Cevap Tahmini",
+    "title5": "Anket Oluştur"
   },
   "Navbar": {
     "nav": "Cevap Tahmini",
     "nav2": "Anket Oluştur",
     "nav3": "Anketlerim",
     "nav4": "Oturumu kapat",
-    "nav5": "Giriş yap"
+    "nav5": "Giriş yap",
+    "language": "Dil",
+    "en": "İngilizce",
+    "tr": "Türkçe"
   },
   "Error": {
     "error": "Üzgünüm, bir şeyler yanlış gitti"
@@ -71,10 +76,8 @@
     "pqr2": "En fazla 256 karakter içermeli",
     "pqr3": "Bir dosya yükleyin",
     "pqr4": "Sadece CSV dosyaları yüklenebilir",
-    "pqr5": "Dosyanın boyutu 10MB'den küçük olmalı"
-  },
-  "ChangeLocale": {
-    "English": "İngilizce",
-    "Turkish": "Türkçe"
+    "pqr5": "Dosyanın boyutu 10MB'den küçük olmalı",
+    "generating": "Yükleniyor...",
+    "submit": "Gönder"
   }
 }

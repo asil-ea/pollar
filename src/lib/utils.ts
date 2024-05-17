@@ -1,3 +1,4 @@
+import { SupabaseClient } from "@supabase/supabase-js";
 import { IFormResponse } from "./types";
 
 export const performCreateSurveyFormValidation = (
@@ -32,4 +33,10 @@ export const parseFormData = (formData: FormData) => {
   });
 
   return formResponse;
+};
+
+export const checkIsLoggedIn = async (supabase: SupabaseClient) => {
+  const { data, error } = await supabase.auth.getUser();
+  const isLoggedIn = !error || data?.user;
+  return isLoggedIn || false;
 };

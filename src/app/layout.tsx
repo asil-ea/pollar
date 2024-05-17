@@ -7,6 +7,7 @@ import { handleSignout } from "./actions";
 import { getLocale, getMessages, getTranslations } from "next-intl/server";
 import { NextIntlClientProvider } from "next-intl";
 import ChangeLocaleDropdown from "@/components/home/ChangeLocaleDropdown";
+import Navbar from "@/components/home/Navbar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,64 +22,17 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const locale = await getLocale();
-  const supabase = createClient();
   const messages = await getMessages();
+
+  const supabase = createClient();
   const { data, error } = await supabase.auth.getUser();
   const isLoggedIn = !error || data?.user;
-  const t = await getTranslations("Navbar");
+
   return (
     <html lang={locale}>
       <NextIntlClientProvider messages={messages}>
         <body className={inter.className}>
-          <nav className="bg-gray-800 p-4">
-            <div className="max-w-7xl mx-auto px-4">
-              <div className="flex justify-between">
-                <div className="flex space-x-4">
-                  <Link
-                    href="/predict-question-results"
-                    className="text-white hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium"
-                  >
-                    {t("nav")}
-                  </Link>
-                  <Link
-                    href="/create-survey"
-                    className="text-white hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium"
-                  >
-                    {t("nav2")}
-                  </Link>
-                </div>
-                <div className="flex space-x-4">
-                  {isLoggedIn ? (
-                    <>
-                      <Link
-                        href="/my-surveys"
-                        className="text-white hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium"
-                      >
-                        {t("nav3")}
-                      </Link>
-                      <form>
-                        <button
-                          formAction={handleSignout}
-                          className="text-white hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium"
-                        >
-                          {t("nav4")}
-                        </button>
-                      </form>
-                    </>
-                  ) : (
-                    <Link
-                      href="/login"
-                      className="text-white hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium"
-                    >
-                      {t("nav5")}
-                    </Link>
-                  )}
-                  {/* change locale dropdown */}
-                  <ChangeLocaleDropdown />
-                </div>
-              </div>
-            </div>
-          </nav>
+          <Navbar isLoggedIn={isLoggedIn} />
           <main>{children}</main>
         </body>
       </NextIntlClientProvider>

@@ -62,7 +62,7 @@ const PredictQuestionResultsForm = ({}: {}) => {
   return (
     <>
       <form onSubmit={handleSubmit(submitData)}>
-        <div className="container mx-4 my-6">
+        <div className="container px-4 my-6">
           <div className="space-y-12">
             <div className="border-b border-gray-900/10 pb-12">
               <h1 className="text-base font-semibold leading-7 text-gray-900">
@@ -185,7 +185,7 @@ const PredictQuestionResultsForm = ({}: {}) => {
               disabled={buttonDisabled}
               className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:cursor-not-allowed disabled:bg-gray-300 disabled:text-gray-900 disabled:shadow-none disabled:hover:bg-gray-300 disabled:focus-visible:outline-gray-300 disabled:focus-visible:outline-offset-0 disabled:focus-visible:outline-none"
             >
-              {buttonDisabled ? "Generating..." : "Submit"}
+              {buttonDisabled ? t("generating") : t("submit")}
             </button>
           </div>
         </div>
