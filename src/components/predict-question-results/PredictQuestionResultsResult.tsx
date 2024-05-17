@@ -14,23 +14,23 @@ const PredictQuestionResultsResult = ({ state }: { state: any }) => {
   }, [state]);
 
   if (!isGenerated) {
-    return <div className="container mx-4 my-6">{t("pqrr")}</div>;
+    return <div className="container px-4 my-6">{t("pqrr")}</div>;
   }
 
   if (isGenerated && state.error) {
     return (
-      <div className="container mx-2 my-6">
+      <div className="container px-2 my-6">
         {t("pqrr2")}: {state.error}
       </div>
     );
   }
 
   return (
-    <>
+    <div className="px-2">
       <div className="container mx-auto my-6 p-4 bg-gray-100 rounded-md">
         <div className="flex items-center mb-2">
           <h1 className="text-2xl font-semibold leading-7 text-gray-900 mb-2">
-            Prediction
+            {t("pqrr3")}
           </h1>
         </div>
         <div className="pl-4">
@@ -49,7 +49,7 @@ const PredictQuestionResultsResult = ({ state }: { state: any }) => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
