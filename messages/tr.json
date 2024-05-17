@@ -76,6 +76,8 @@
     "pqr2": "En fazla 256 karakter içermeli",
     "pqr3": "Bir dosya yükleyin",
     "pqr4": "Sadece CSV dosyaları yüklenebilir",
-    "pqr5": "Dosyanın boyutu 10MB'den küçük olmalı"
+    "pqr5": "Dosyanın boyutu 10MB'den küçük olmalı",
+    "generating": "Yükleniyor...",
+    "submit": "Gönder"
   }
 }

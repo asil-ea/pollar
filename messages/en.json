@@ -76,6 +76,8 @@
     "pqr2": "String must contain at most 256 character(s)",
     "pqr3": "Please upload a file",
     "pqr4": "Only CSV files are allowed",
-    "pqr5": "File size must be less than 10MB"
+    "pqr5": "File size must be less than 10MB",
+    "generating": "Generating..",
+    "submit": "Submit"
   }
 }
