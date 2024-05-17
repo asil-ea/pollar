@@ -9,7 +9,10 @@
     "nav2": "Anket Oluştur",
     "nav3": "Anketlerim",
     "nav4": "Oturumu kapat",
-    "nav5": "Giriş yap"
+    "nav5": "Giriş yap",
+    "language": "Dil",
+    "en": "İngilizce",
+    "tr": "Türkçe"
   },
   "Error": {
     "error": "Üzgünüm, bir şeyler yanlış gitti"
@@ -72,9 +75,5 @@
     "pqr3": "Bir dosya yükleyin",
     "pqr4": "Sadece CSV dosyaları yüklenebilir",
     "pqr5": "Dosyanın boyutu 10MB'den küçük olmalı"
-  },
-  "ChangeLocale": {
-    "English": "İngilizce",
-    "Turkish": "Türkçe"
   }
 }
