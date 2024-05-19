@@ -32,7 +32,9 @@
     "loading": "Yükleniyor"
   },
   "Mysur": {
-    "mysur": "Benim Anketlerim"
+    "mysur": "Benim Anketlerim",
+    "create_survey": "Anket Oluştur",
+    "no_surveys": "Henüz anket oluşturulmadı"
   },
   "Private": {
     "private": "Merhaba"
@@ -77,6 +79,7 @@
     "pqr3": "Bir dosya yükleyin",
     "pqr4": "Sadece CSV dosyaları yüklenebilir",
     "pqr5": "Dosyanın boyutu 10MB'den küçük olmalı",
+    "download_sample": "Örnek CSV dosyası indir",
     "generating": "Yükleniyor...",
     "submit": "Gönder"
   }

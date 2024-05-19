@@ -1,12 +1,13 @@
 "use client";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import Link from "next/link";
+import { ZodType, z } from "zod";
+import { useTranslations } from "next-intl";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { submitPredictQuestion } from "@/app/actions";
 import { PredictQuestionFormData } from "@/lib/types";
 import PredictQuestionResultsResult from "../PredictQuestionResultsResult";
-import { useTranslations } from "next-intl";
-import { ZodType, z } from "zod";
 
 const PredictQuestionResultsForm = ({}: {}) => {
   const [formResponse, setFormResponse] = useState({});
@@ -174,6 +175,15 @@ const PredictQuestionResultsForm = ({}: {}) => {
                       {errors.file_upload.message}
                     </span>
                   )}
+                  {/* download sample csv */}
+                  <div className="mt-4 flex justify-start">
+                    <Link
+                      href="/sample.csv"
+                      className="text-sm font-semibold text-indigo-600 hover:text-indigo-500"
+                    >
+                      {t("download_sample")}
+                    </Link>
+                  </div>
                 </div>
               </div>
             </div>
