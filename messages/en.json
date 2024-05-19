@@ -32,7 +32,9 @@
     "loading": "Loading"
   },
   "Mysur": {
-    "mysur": "My Surveys"
+    "mysur": "My Surveys",
+    "create_survey": "Create Survey",
+    "no_surveys": "No surveys yet."
   },
   "Private": {
     "private": "Hello"
@@ -77,6 +79,7 @@
     "pqr3": "Please upload a file",
     "pqr4": "Only CSV files are allowed",
     "pqr5": "File size must be less than 10MB",
+    "download_sample": "Download sample CSV file",
     "generating": "Generating..",
     "submit": "Submit"
   }
