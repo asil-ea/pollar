@@ -2,6 +2,7 @@ import React from "react";
 import { fetchSurveyDetail } from "./actions";
 import { redirect } from "next/navigation";
 import { createClient } from "@/utils/supabase/server";
+import ExportCsvButton from "@/components/my-surveys/ExportCsvButton";
 
 const SurveyDetail = async ({ params }: { params: { surveyId: string } }) => {
   const supabase = createClient();
@@ -42,7 +43,7 @@ const SurveyDetail = async ({ params }: { params: { surveyId: string } }) => {
           ))}
         </ol>
       </div>
-      {/* <ExportCsvButton surveyId={params.surveyId} /> */}
+      <ExportCsvButton surveyId={params.surveyId} />
     </div>
   );
 };

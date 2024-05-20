@@ -1,7 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import { fetchSurveyDetail } from "../../my-surveys/[surveyId]/actions";
+import { createClient } from "@/utils/supabase/server";
+import { Parser } from "@json2csv/plainjs";
 
 export async function GET(request: NextRequest) {
+  const supabase = createClient();
+
   const { searchParams } = new URL(request.url);
   const surveyId = searchParams.get("surveyId");
 
@@ -13,16 +17,27 @@ export async function GET(request: NextRequest) {
     (a: any, b: any) => a.index - b.index
   );
 
-  let csvFormat = `data:text/csv;charset=utf-8,${surveyTitle},\r\n`;
-  const questionsFormat = orderedQuestions
-    .map((question) => {
-      return question.question;
-    })
-    .join(",\r\n");
-  csvFormat += questionsFormat;
-  console.log(csvFormat);
+  const parser = new Parser({
+    fields: ["question", "index"],
+  });
+  const csv = parser.parse(orderedQuestions);
 
-  console.log(surveyTitle);
+  console.log(csv);
 
-  return Response.json({ message: "not implemented yet" });
+  const { data: upsertResponse, error } = await supabase.storage
+    .from("survey_csv_files")
+    .upload(`${surveyId}.csv`, csv, {
+      contentType: "text/csv",
+      upsert: true,
+    });
+
+  const { data } = supabase.storage
+    .from("survey_csv_files")
+    .getPublicUrl(`${surveyId}.csv`, {
+      download: true,
+    });
+
+  console.log(data, error);
+
+  return NextResponse.json(data);
 }
