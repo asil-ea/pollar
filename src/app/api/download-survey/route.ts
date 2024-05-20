@@ -20,9 +20,11 @@ export async function GET(request: NextRequest) {
   const parser = new Parser({
     fields: ["question", "index"],
   });
-  const csv = parser.parse(orderedQuestions);
-
-  console.log(csv);
+  const csv = parser.parse({
+    data: orderedQuestions,
+    withBOM: true,
+    excelStrings: true,
+  });
 
   const { data: upsertResponse, error } = await supabase.storage
     .from("survey_csv_files")
