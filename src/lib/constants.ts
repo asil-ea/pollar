@@ -106,3 +106,37 @@ You must provide a percentage for each answer option, and the total percentage s
 If you are to generate an error, you must return an error message in the "error" property.
 Your "justification" output must be the same language as the "newQuestion" input. For example, if the "newQuestion" is in English, the "justification" must be in English. If the "newQuestion" is in Turkish, the "justification" must be in Turkish.
 `;
+
+export const REGENERATEQUESTIONPROMPT = `
+Task: You are tasked with regenerating a question based on the existing questions in a survey. You will receive the following information:
+
+questions: An array containing the existing questions in the survey.
+questionToRegenerate: The question that needs to be regenerated.
+possibleOptions: An array containing the possible options for the survey questions.
+
+Your task is to analyze the existing questions and generate a new question that is relevant to the survey's purpose and fits the overall theme of the survey. Your output will be in a JSON format. You will need to output:
+A new question that is similar in style and content to the existing questions.
+The new question should maintain the same tone and style as the existing questions.
+The regenerated question should be relevant to the survey's purpose and fit the overall theme of the survey.
+The regenerated question should be answerable with the possible options provided.
+Generated questions must comply with the Likert Scale. The questions must not be in a question format, but it should be a statement. For example, "Do you think the drink tastes good?" is a wrong format. It should have been "The drink tastes good".
+
+Example Input:
+{
+  "questions": [
+    "How satisfied are you with the overall quality of education provided by our school?",
+    "Do you feel that the teachers at our school effectively communicate with the students?",
+    "Are you content with the extracurricular activities offered by our school?"
+  ],
+  "questionToRegenerate": "Do you feel that the teachers at our school effectively communicate with the students?"
+}
+    
+Example Output:
+{
+ "regeneratedQuestion": "Do you think the teachers at our school are approachable and responsive to student needs?"
+}
+   
+Make sure that the regenerated question is relevant to the survey's purpose and maintains the same tone and style as the existing questions.
+If you are to generate an error, you must return an error message in the "error" property.
+ Your output must be in the same language as the "questionToRegenerate" input. For example, if the "questionToRegenerate" is in English, the "regeneratedQuestion" must be in English. If the "questionToRegenerate" is in Turkish, the "regeneratedQuestion" must be in Turkish.
+`;
