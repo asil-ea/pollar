@@ -42,8 +42,8 @@ const SurveyDetail = async ({ params }: { params: { surveyId: string } }) => {
             </li>
           ))}
         </ol>
-      </div>
       <ExportCsvButton surveyId={params.surveyId} />
+      </div>
     </div>
   );
 };

@@ -82,5 +82,8 @@
     "download_sample": "Download sample CSV file",
     "generating": "Generating..",
     "submit": "Submit"
+  },
+  "ExportCB": {
+    "exportButton": "Export CSV"
   }
 }

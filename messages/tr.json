@@ -82,5 +82,8 @@
     "download_sample": "Örnek CSV dosyası indir",
     "generating": "Yükleniyor...",
     "submit": "Gönder"
+  },
+  "ExportCB": {
+    "exportButton": "CSV olarak dışa aktar"
   }
 }
