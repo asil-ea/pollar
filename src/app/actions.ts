@@ -5,6 +5,7 @@ import OpenAI from "openai";
 import {
   CREATESURVEYPROMPT,
   PREDICTQUESTIONRESULTSPROMPT,
+  REGENERATEQUESTIONPROMPT,
 } from "@/lib/constants";
 import { IInputJson, SubmitCreateSurveyFormData } from "@/lib/types";
 import { createClient } from "@/utils/supabase/server";
@@ -127,6 +128,35 @@ export const submitCreateSurvey = async (
   revalidatePath("/create-survey");
   return message;
 };
+
+export const handleRegenerateQuestion = async (questions: string[], possibleOptions: any, index: number) => {
+
+  const payload = {
+    questions: questions,
+    questionToRegenerate: questions[index],
+    possibleOptions: possibleOptions,
+  }
+
+  const response = await openai.chat.completions.create({
+    messages: [
+      {
+        role: "system",
+        content: REGENERATEQUESTIONPROMPT,
+      },
+      {
+        role: "user",
+        content: JSON.stringify(payload),
+      },
+    ],
+    model: "gpt-4o",
+    response_format: { type: "json_object" },
+  });
+
+  // @ts-ignore
+  const message = await JSON.parse(response.choices[0].message.content);
+  revalidatePath("/create-survey");
+  return message;
+}
 
 export const handleSaveSurvey = async (surveyPayload: any) => {
   const supabase = createClient();

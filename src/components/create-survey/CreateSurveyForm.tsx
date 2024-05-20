@@ -134,7 +134,7 @@ const CreateSurveyForm = ({}: {}) => {
           </div>
         </div>
       </form>
-      <CreateSurveyResult state={formResponse} />
+      <CreateSurveyResult componentState={formResponse} />
     </>
   );
 };

@@ -1,12 +1,16 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { isEmpty } from "lodash";
-import { handleSaveSurvey } from "@/app/actions";
+import { isEmpty, set } from "lodash";
+import { handleRegenerateQuestion, handleSaveSurvey } from "@/app/actions";
 import { useTranslations } from "next-intl";
+import { ArrowPathIcon } from "@heroicons/react/20/solid";
 
-const CreateSurveyResult = ({ state }: { state: any }) => {
+const CreateSurveyResult = ({ componentState }: { componentState: any }) => {
   const [isGenerated, setIsGenerated] = useState(false);
   const [saveButtonDisabled, setSaveButtonDisabled] = useState(false);
+  const [regenerateButtonDisabled, setRegenerateButtonDisabled] =
+    useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [state, setState] = useState<any>(componentState);
   const t = useTranslations("CreateSR");
 
   const possibleOptions = useMemo(() => {
@@ -29,11 +33,12 @@ const CreateSurveyResult = ({ state }: { state: any }) => {
 
   useEffect(() => {
     if (isEmpty(state)) {
+      setState(componentState);
       setIsGenerated(false);
     } else {
       setIsGenerated(true);
     }
-  }, [state]);
+  }, [state, componentState]);
 
   const handleCheckboxChecked = (e: any) => {
     if (errorMessage) setErrorMessage("");
@@ -76,6 +81,29 @@ const CreateSurveyResult = ({ state }: { state: any }) => {
     );
   }
 
+  const regenerateQuestion = async (questions: any[], index: number) => {
+    setRegenerateButtonDisabled(true);
+    const res = await handleRegenerateQuestion(
+      questions,
+      possibleOptions,
+      index
+    );
+    if (res.error) {
+      setErrorMessage(res.error);
+      return;
+    }
+    const updatedQuestions = state.questions.map((question: any, i: number) => {
+      if (i === index) {
+        return {
+          title: res.regeneratedQuestion,
+        };
+      }
+      return question;
+    });
+    setState({ ...state, questions: updatedQuestions });
+    setRegenerateButtonDisabled(false);
+  };
+
   return (
     <div className="px-2">
       <div className="container mx-auto my-6 p-4 bg-gray-100 rounded-md">
@@ -97,7 +125,17 @@ const CreateSurveyResult = ({ state }: { state: any }) => {
                     onChange={handleCheckboxChecked}
                     value={question.title}
                   />
+
                   {question.title}
+                  <button
+                    disabled={regenerateButtonDisabled}
+                    className="ml-2 px-2 py-1 text-sm font-semibold text-white bg-indigo-600 rounded-md shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:cursor-not-allowed disabled:bg-gray-300 disabled:text-gray-900 disabled:shadow-none disabled:hover:bg-gray-300 disabled:focus-visible:outline-gray-300 disabled:focus-visible:outline-offset-0 disabled:focus-visible:outline-none"
+                    onClick={() => {
+                      regenerateQuestion(state.questions, index);
+                    }}
+                  >
+                    <ArrowPathIcon className="mb-0.5 h-3 w-3" />
+                  </button>
                 </h2>
               </div>
               <ul className="flex flex-col md:flex-row md:justify-between">
