@@ -1,7 +1,15 @@
-import { type NextRequest } from "next/server";
+import { NextResponse, type NextRequest } from "next/server";
 import { updateSession } from "@/utils/supabase/middleware";
 
 export async function middleware(request: NextRequest) {
+  // Redirect to the maintenance page if the maintenance mode is enabled
+  // Redirect only if the request path is not the maintenance page itself
+  if (
+    !request.nextUrl.pathname.startsWith("/maintenance") &&
+    process.env.MAINTENANCE_MODE === "true"
+  ) {
+    return NextResponse.redirect(new URL("/maintenance", request.url));
+  }
   return await updateSession(request);
 }
 
