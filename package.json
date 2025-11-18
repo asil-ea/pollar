@@ -14,7 +14,7 @@
     "@hookform/resolvers": "^3.3.4",
     "@json2csv/plainjs": "^7.0.6",
     "@supabase/ssr": "^0.3.0",
-    "@supabase/supabase-js": "^2.42.7",
+    "@supabase/supabase-js": "^2.81.1",
     "@tailwindcss/forms": "^0.5.7",
     "@tailwindcss/typography": "^0.5.12",
     "@types/js-cookie": "^3.0.6",
